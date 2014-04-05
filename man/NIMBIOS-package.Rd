@@ -3,12 +3,10 @@
 \alias{NIMBIOS}
 \docType{package}
 \title{
-What the package does (short line)
-~~ package title ~~
+Support for the Teaching with R tutorial at NIMBIOS
 }
 \description{
-More about what it does (maybe more than one line)
-~~ A concise (1-5 lines) description of the package ~~
+Collaborative editing and some data for the tutorial
 }
 \details{
 \tabular{ll}{
@@ -16,16 +14,15 @@ Package: \tab NIMBIOS\cr
 Type: \tab Package\cr
 Version: \tab 1.0\cr
 Date: \tab 2014-04-05\cr
-License: \tab What license is it under?\cr
+License: \tab Use it as you will\cr
 }
-~~ An overview of how to use the package, including the most ~~
-~~ important functions ~~
+Load this package to have access to the collaborate() function for
+collaborative editing, and to a few data sets.
 }
 \author{
-Who wrote it
+Daniel Kaplan
 
-Maintainer: Who to complain to <yourfault@somewhere.net>
-~~ The author and/or maintainer of the package ~~
+Maintainer: Daniel Kaplan <kaplan@macalester.edu>
 }
 \references{
 ~~ Literature or other references for background information ~~
@@ -34,9 +31,10 @@ Maintainer: Who to complain to <yourfault@somewhere.net>
 ~~ KEYWORDS in the R documentation directory ~~
 \keyword{ package }
 \seealso{
-~~ Optional links to other man pages, e.g. ~~
-~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
+\code{\link[<pkg>:<mosaic-package]{<pkg>}} ~~
 }
 \examples{
-~~ simple examples of the most important functions ~~
+f <- collaborate("sharedfile.Rmd")
+data(NHANES-original)
+data(NHANES)
 }
