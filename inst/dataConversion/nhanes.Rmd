@@ -1,0 +1,40 @@
+---
+title: "A compact version of nhanesOriginal"
+author: "Daniel Kaplan"
+date: "April 5, 2014"
+output: html_document
+---
+
+
+```{r include=FALSE}
+require(NIMBIOS)
+```
+
+Pull out the important variables, changing as necessary to categorical and standardizing the names.
+```{r}
+NHANES <- data.frame( sex=rep(0,nrow(nhanesOriginal)))
+NHANES$sex <- as.factor(c('Male','Female')[nhanesOriginal$sex])
+NHANES$height <- nhanesOriginal$hgt
+NHANES$weight <- nhanesOriginal$wgt
+NHANES$age <- nhanesOriginal$age
+NHANES$BMI <- nhanesOriginal$bmi
+NHANES$trunkfat <- nhanesOriginal$ptf
+NHANES$leanBMI <- nhanesOriginal$lbmi
+NHANES$LDL <- nhanesOriginal$chol
+NHANES$HDL <- nhanesOriginal$hdl
+NHANES$systolic <- nhanesOriginal$bps
+NHANES$diastolic <- nhanesOriginal$bpd
+NHANES$income <- nhanesOriginal$income
+NHANES$pregnant <- as.factor(c('not','pregnant')[1+nhanesOriginal$preg])
+NHANES$death <- as.factor(c('alive','otherdeath','cardiodeath')[1+nhanesOriginal$d])
+NHANES$followup <- nhanesOriginal$m
+NHANES$smoker <- as.factor(c('nonsmoker','smoker')[1+nhanesOriginal$smoke])
+NHANES$diabetic <- as.factor(c('nondiabetic','diabetic'))[1+nhanesOriginal$diab]
+NHANES$framingham <- nhanesOriginal$fmhm_other
+NHANES$percentfat <- nhanesOriginal$pf
+```
+
+Save in file `NHANES.rda`.  Then move this to the `data` directory.
+```{r}
+save(NHANES, file='NHANES.rda')
+```

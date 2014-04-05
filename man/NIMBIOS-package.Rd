@@ -29,8 +29,4 @@ Maintainer: Daniel Kaplan <kaplan@macalester.edu>
 ~~ Literature or other references for background information ~~
 }
 \keyword{ package }
-\examples{
-f <- collaborate("sharedfile.Rmd")
-data(NHANES-original)
-data(NHANES)
-}
+
