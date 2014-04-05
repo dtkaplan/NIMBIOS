@@ -16,6 +16,7 @@ Version: \tab 1.0\cr
 Date: \tab 2014-04-05\cr
 License: \tab Use it as you will\cr
 }
+
 Load this package to have access to the collaborate() function for
 collaborative editing, and to a few data sets.
 }
@@ -27,12 +28,7 @@ Maintainer: Daniel Kaplan <kaplan@macalester.edu>
 \references{
 ~~ Literature or other references for background information ~~
 }
-~~ Optionally other standard keywords, one per line, from file ~~
-~~ KEYWORDS in the R documentation directory ~~
 \keyword{ package }
-\seealso{
-\code{\link[<pkg>:<mosaic-package]{<pkg>}} ~~
-}
 \examples{
 f <- collaborate("sharedfile.Rmd")
 data(NHANES-original)
