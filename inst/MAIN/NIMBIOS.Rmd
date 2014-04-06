@@ -1,0 +1,10 @@
+# collaborative editing in R
+
+Just testing 
+
+This is my document.
+
+It works for me, too! This is me.
+
+I can write whatever.
+

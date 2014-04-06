@@ -1,0 +1,594 @@
+
+R in the Classroom - I
+========================================================
+author: Danny Kaplan
+date: NIMBIOS Computing in the Cloud Workshop
+
+```{r include=FALSE}
+require(mosaic)
+require(ggplot2)
+opts_chunk$set( tidy=FALSE )
+```
+
+To Do:
+========================================================
+
+1. Set up the NIMBIOS package: Done
+2. Add a scaffold file to NIMBIOS.  Maybe a scaffold function?
+
+
+
+
+Tutorial about Teaching?
+========================================================
+
+> A tutorial is ... more *interactive* and specific than a book or a lecture; a tutorial seeks to *teach by example* and supply the information to complete a certain task. --- [Wikipedia](http://en.wikipedia.org/wiki/Tutorial)
+
+### Plan:
+
+* Show some resources for teaching. 
+    * Today: Introductory students.
+        * Start to develop a short lesson using these resources
+    * Tomorrow: Several possiibilities
+        * Writing a lesson on one of the other tutorials
+        * Data wrangling? Teaching programming in R?
+        
+Outline
+=============================================
+
+### Some resources for teaching with R
+
+RStudio, `mosaic`, editor and Rmd.
+
+### Some principles of teaching with computation
+
+These apply to many different software packages.
+
+### Illustrations of applying those principles with R
+
+Using mainly `mosaic` and Rmd
+        
+
+RStudio
+========================================================
+
+### Integrated Development Environment (IDE) for R
+
+* Desktop and server/cloud version
+* **Conveniences**: Workspace viewer, command history, figure export, package installation, help
+* **Big stuff** (to me): 
+    * Connects an editor to R and support for producing documents within the IDE.
+        * $\LaTeX$ is there, but that's too hard for intro students
+        * Markdown.  Compiles to HTML, PDF, Word
+    * Project organization and Collaboration support for instructors (or students)
+
+RStudio: Use the Server for Students
+========================================================
+
+### Pros
+
+* Very little startup/installation hassle.
+* Students can access their sessions from any computer.
+    They don't have to pay attention to `save()`ing, etc.
+* Instructors can access student sessions.  (This feature can be improved.)
+
+### Cons
+
+* Speed (?)
+* Students can get confused about file location ("my computer?").    
+    To avoid such confusion, have students do everything from the server, not move back and forth between server and desktop.  More details later.
+
+Markdown and Editing
+========================================================
+
+Markdown is a straightforward markup language for producing documents quickly.  
+
+* Simple syntax (unlike $\LaTeX$)
+* Compiles to HTML (or PDF or Word).
+* Can include straight HTML (e.g. iframes, video)
+
+The RStudio editor provides easy facilities for working with Markdown and integrating it with R.  (But doing this doesn't require RStudio.)
+
+For instructors
+========================================================
+
+You are generally switching among contexts: teach class A, research project B, revise paper C, teach class D, test out epiphany E
+
+**Projects** in RStudio are a simple way to keep these contexts distinct and organized, and to be able to switch back and forth.  Documents being edited stay open.
+
+Other useful tools for instructors:
+
+* Git and GitHub for collaborating on projects and publishing
+* R packages
+
+Interaction: Write a Biography in Markdown
+========================================================
+
+It could be you, a historic figure, etc.
+
+Include: 
+
+* sections and subsections
+* bulleted and numbered lists
+* links and images (note: these go together)
+
+How to ...
+=========================================================
+
+## In RStudio
+
+1. Open a document using `New File/R Markdown`
+2. Name and save the file.
+4. Press `Knit HTML` button
+
+
+## In generic R 
+
+One time: Install `knitr` package
+
+1. Create and save a file. `.Rmd` is a nice suffix.
+3. From the R session, use the `knit2html()` function to compile to HTML, e.g.
+```{r eval=FALSE}
+knit2html('GeorgeWashington.Rmd')
+```
+
+The `mosaic` package
+=======================================================
+
+Available on CRAN: Install in the usual way, e.g.
+```{r eval=FALSE}
+install.packages('mosaic')
+```
+
+* Attempts to provide a coherent and unified set of commands, to make it easier for beginning students to use R.
+* Stays close to standard R whenever possible
+* Used for both statistics and calculus
+
+Example:
+```{r eval=FALSE}
+mean( height ~ sex, data=Galton )
+```
+
+Created by DTK, Randall Pruim (Calvin College), Nick Horton (Amherst College)
+
+Some Principles for Teaching with R
+========================================================
+ 
+### Principle: 
+
+An idea that forms the basis of something
+
+### Reflection:
+
+A thought, idea, or opinion formed or a remark made as a result of meditation
+
+## Watch out!
+
+These are not a self-consistent and complete set of statements. 
+
+The Principles in Brief
+========================================================
+
+* Keep it simple and consistent for your students.
+* Teach one thing at a time (or, at least, not everything at once). 
+* Support collaboration.
+* Illustrate a professional workflow.
+* Don't code, Express!
+* Provide immediate gratification/confidence when starting out every day.
+* Give students a working scaffold/template.
+* Make the technology central to how and what you teach.
+* Build on what students already know.
+
+    
+As Simple as Possible
+==============================================
+    
+> Man soll die Dinge so einfach machen wie möglich - aber nicht einfacher.   
+> Everything should be made as simple as possible, but not simpler.  --- A. Einstein
+
+Keep it Simple and Consistent
+========================================================
+
+* Accessing data should not be esoteric or a labor.
+    * Let students refer to data just by name. e.g. `Galton`
+    * Have a repository.
+    * Suggestion: Develop a package for each course to hold data and other files, and simple functions for accessing them.
+
+`mosaic` syntax: graphics, basic descriptive states, modeling.
+* formulas
+* `data=`
+
+Some Tasks for You
+==================================================
+
+1. Calculate the mean of a variable (say, `height` in `Galton`)
+2. Calculate groupwise means (e.g., `height` broken down by `sex` )
+3. Find the residuals from groupwise means.
+4. Find the correlation between two variables (e.g. `mother` and `father`)
+5. Find R^2 of a model
+
+Functions that operate in a consistent way
+==================================================
+
+`mosaic` extends some existing functions.  Look at `mean()`.
+
+```{r}
+mean( height ~ sex, data=Galton)
+```
+
+It's the same syntax as other operations
+==================================================
+
+```{r eval=FALSE}
+bwplot( height ~ sex, data=Galton )
+xyplot( height ~ father, data=Galton )
+lm( height ~ father, data=Galton )
+```
+
+Means as models
+====================================================
+
+Mean is so widely used, we didn't want to break it.  So, `mm()` for modeling with groupwise means.
+```{r}
+mm( height ~ sex, data=Galton )
+```
+
+Try `fitted()`, `resid()`, `confint()`, `rsquared()`
+
+Build on What Students Already Know
+========================================================
+
+Many know about functions and their graphs.
+
+```{r}
+mod <- lm( height ~ mother * sex, data=Galton)
+f <- makeFun(mod)
+f(mother=65,sex='F') - f(mother=64,sex='F')
+```
+
+Graphing functions
+=============================================
+
+```{r}
+
+plotFun( f(mother=x, sex='F') ~ x, x.lim=c(40,75),
+         col='red')
+plotFun( f(mother=x, sex='M') ~ x, add=TRUE)
+```
+
+Calculus in R
+=====================================================
+
+At Macalester, we use R in the first calculus course (which is multivariable with a modeling theme).
+
+```{r}
+D( sqrt(x*sin(x^2)) ~ x )
+antiD( 1/x ~ x )
+```
+
+Also: model fitting (with nonlinear parameters), differential equations, units and dimensions, ...
+
+Integration is Symbolic and Numeric
+================================================
+
+Symbolic for the easy ones.  Numeric otherwise.
+
+But both return a function.
+
+```{r}
+f <- antiD( x*sin(x) ~ x)
+f
+f(3) - f(0)
+```
+
+Sharing and Distributing Files
+========================================================
+
+* Simplest for students
+    > Put your data in a package  
+* Simplest for instructor:
+    > Put fixed data on website and provide URL
+* Hardest for Everybody
+    > Students copying files onto their own machines.
+* for dynamic data, use collaborative editing as with Google Docs
+*  Collaborative Editing
+
+
+
+
+Don't Teach Everything at Once
+========================================================
+
+If you're teaching data cleaning or wrangling, give students the raw data and have them produce a new set of data.
+
+If you're teaching statistics or the content of the data, give them clean data in an easy to use form.
+
+> You can always say later, "Here's where that simple dataset came from."
+
+Two things at once: Example
+=============================================
+
+* Data management and cleaning with nhanesOriginal
+    * Everything is quantitative
+    * Must constantly refer to the codebook
+    * Have to convert some variables to categorical for even simple tasks.
+
+* NHANES cleaned up
+
+Support collaboration
+========================================================
+
+Something of a contradiction:
+
+* Ask students to work in teams on technical matters and reports.
+* Provide them with **no support** specifically oriented to computing.
+
+You can't use Word very well for reporting on R.    
+A Google Doc is much like Word.
+
+### What tools do you use for supporting collaboration?
+
+
+
+
+Collaborative Editing with Google Docs
+========================================================
+
+### How to create a spreadsheet for editing
+
+* create, publish, provide link for editing
+* provide link to access as CSV
+    
+### Bring the edited spreadsheet back to R
+
+* with `mosaic` package, `fetchGoogle( link )`
+
+> Example:
+     Bird species names from Macalester's Ordway Conservation Area logs from the 1970s and 80s  `Resources/NamesForCleaning.csv`.
+     
+Google broke my system: Use the old stuff.  I'll try to figure something out with RXML or RJSONIO, or RGoogleDocs.
+     
+* Original birds [for editing](https://docs.google.com/spreadsheet/ccc?key=0Av2C2RiwUxpVdFlPWUp6NERSQzhld3o4QklQd1p6d2c&usp=sharing) and [as CSV](https://docs.google.com/spreadsheet/pub?key=0Av2C2RiwUxpVdFlPWUp6NERSQzhld3o4QklQd1p6d2c&single=true&gid=0&output=csv)
+
+
+
+Collaborative Editing of Documents
+=================================================
+
+Packages are straightforward to write and install.
+```{r eval=FALSE}
+install_github('dtkaplan/NIMBIOS')
+```
+
+This package has an example of a collaborative editor:
+```{r eval=FALSE}
+f <- collaborate(doc="NIMBIOS")
+f('edit')
+```
+Any time you want to bring this into R:
+```{r eval=FALSE}
+f('capture')
+```
+
+
+ 
+
+Make the technology central to how and what you teach.
+========================================================
+
+Least squares fitting:
+
+```{r}
+mod1 <- mm( height ~ sex, data=Galton)
+sum( resid(mod1)^2 )
+mod2 <- mm( height ~ sex, data=Galton, fun=median )
+sum( resid(mod2)^2 )
+```
+
+Or let students make up functions
+=========================================================
+
+A template for the model:
+```{r}
+myf <- makeFun( ifelse(sex=='F', 64, 69)~sex)
+myf(sex='M')
+```
+
+Look at the residuals:
+```{r}
+resids <- with(Galton, height - myf(sex))
+sum( resids^2 )
+```
+
+How and What You Teach: Inference
+========================================================
+
+Are you using paper-and-pencil techniques but having the students save time and avoid error by doing them on the computer, e.g.
+* z-test, p-test, t-test
+* ANOVA
+
+The statistical concepts are easier to understand if they are presented in their essence: the 3 Rs of statistical inference. 
+
+### Randomize, Repeat, Reject
+
+Randomize
+========================================================
+
+* `resample()`, `shuffle()` and `rand()`
+
+## Sampling Distributions
+
+```{r} 
+mean( height ~ sex, data=resample(Galton) )
+```
+```{r eval=FALSE}
+lm( height ~ father, data=resample(Galton) )
+```
+```{r echo=FALSE}
+coef( lm( height ~ father, data=resample(Galton)))
+```
+
+Shuffle
+================================
+
+## Null Hypothesis
+
+```{r} 
+mean( shuffle(height) ~ sex, data=Galton )
+```
+```{r eval=FALSE}
+lm( shuffle(height) ~ father, data=Galton )
+```
+```{r echo=FALSE}
+coef(lm( shuffle(height) ~ father, data=Galton ))
+```
+
+ANOVA
+========================================================
+
+ANOVA is not essentially about within-groups and between-groups variability.  
+
+It's about whether added terms in a model pull their weight:
+```{r}
+mod1 <- lm( height ~ sex, 
+            data=Galton )
+mod2 <- lm( height ~ sex + family, 
+            data=Galton )
+```
+`mod2` includes a categorical variable giving the family.
+```
+rsquared( mod1 )
+rsquared( mod2 )
+```
+ 
+ANOVA (continued)
+========================================================
+```{r}
+length(coef(mod2))
+rsquared(mod2)
+rsquared(lm( height ~ sex + 
+               rand(196), data=Galton ) )
+```
+
+Don't code, Express!
+======================================================== 
+
+To continue with the ANOVA example: generate a large number of the randomized model and compare with the value from `mod2`.
+
+Loops?  Accumulators? Application to vectors, or is it lists?
+
+Just do it!
+```{r}
+do(5)*rsquared(lm( height ~ sex + rand(196), data=Galton ) )
+samps <- do(200)*rsquared(lm(height ~ sex + rand(196), data=Galton ))
+```
+
+Don't Code! (2)
+==============================================
+
+## Avoid distracting details:
+
+* Standard plots are generally good enough.  You don't need to elaborate.
+* Don't force students to read code they won't understand.
+* If your project needs code, put it in a function and distribute the function via your course package.
+
+
+And reject?
+======================================
+
+Use the test statistic directly:
+
+```{r}
+pdata( .73, ~result, data=samps)
+```
+
+
+Or, using normal theory:
+===========================================
+
+```{r}
+anova( mod1, mod2 )
+```
+
+
+
+
+Give students a working scaffold/template.
+===========================================
+
+Example: I often start with a graph-reading exercise.  Partly, this is to get students to realize that even if they think they know, they often do not.
+
+```{r echo=FALSE, fig.width=10,fig.height=3.5}
+xyplot( births ~ dayofyear, data=Births78 )
+```
+
+Provide immediate confidence when starting out every day.
+===========================================
+
+### Not "R has a steep learning curve"
+
+Your scaffolds can do this.  Make them attractive.
+
+Illustrate a professional workflow.
+===========================================
+
+* Document your work.
+* Write coherent explanations.
+* Don't alter your data, except when documented and reversible
+* Write and provide your own notes this way
+
+>>> This is where R/Markdown is fantastic.
+
+
+    
+
+
+
+
+Don't Code in Front of Students
+===================================================
+
+Code examples:
+
+* loops
+* accumulators
+* conditionals
+* indexing brackets.  Use `subset()`, `transform()`, ...
+
+Example: Bootstrapping
+
+`do()` and `resample()` functions
+
+Example: Hypothesis Testing
+
+
+
+
+
+mPlot() 
+===================================================
+
+We need to document, which implies code.  But the code for graphics gets difficult, and it's hard for students to play with the possibilities.
+
+Generates the code needed to recreate the plot. (`mBar()` to come.)
+
+```{r eval=FALSE}
+mScatter( Galton )
+mPlot( Galton, default='density')
+```
+
+```{r echo=FALSE}
+qplot( data=Galton, x=height, geom="line", stat="bin", binwidth=1  ) + aes(colour=sex) + facet_wrap(~sex, ncol=4) + labs(title="") + theme(legend.position="top")
+```
+
+Activities
+===========================================
+
+Get started on these.  See what progress you can make and then we'll return to them tomorrow.
+
+* A lesson about confidence intervals.
+    Here's a population: Ten Mile Race
+* Show that even random junk contributes to R^2.  Have the students discover the relationship.
+* Distribution of the F statistic under the Null
+* A logistic regression lesson.  When you can just use `lm()`, when `glm()` is important.  Example: Cardiac death and smoking in the NHANES-III data.  Or: why and when when modeling yes/no outcomes is logistic regression more appropriate than linear modeling?
+* Something that relates to a dataset of interest to you in your teaching.
