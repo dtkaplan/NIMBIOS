@@ -23,6 +23,13 @@ library( mosaic )
 
 The [**scaffold** for the in-class activity](https://raw.githubusercontent.com/dtkaplan/NIMBIOS/master/inst/NIMBios-Slides/Rsquared-scaffold.Rmd).  Cut and paste this into an RStudio editor window.  Then customize it and hand it in on RPubs.
 
+## Shiny
+
+* [Langrange Multipliers](http://glimmer.rstudio.com/mosaic/LagrangeMultiplier/)
+* [Predicting the 2012 Presidential Election](http://glimmer.rstudio.com/mosaic/Election2012/)
+* [Geometry of Confidence Intervals](http://glimmer.rstudio.com/mosaic/CIgeometry/)
+* [Bayes App](http://glimmer.rstudio.com/mosaic/BayesApp/) written by a student, Ross Peterson, who took both the Bayesian Statistics and the Scientific Programming courses in Fall 2013. 
+
 -------------------------
 
 ## The Basement 
