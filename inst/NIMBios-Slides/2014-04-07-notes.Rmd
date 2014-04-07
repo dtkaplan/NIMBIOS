@@ -23,9 +23,11 @@ library( mosaic )
 
 The [**scaffold** for the in-class activity](https://raw.githubusercontent.com/dtkaplan/NIMBIOS/master/inst/NIMBios-Slides/Rsquared-scaffold.Rmd).  Cut and paste this into an RStudio editor window.  Then customize it and hand it in on RPubs.
 
-
+-------------------------
 
 ## The Basement 
+
+Things you don't really need.
 
 * The Google Spreadsheet: [editing link](https://docs.google.com/spreadsheet/ccc?key=0Am13enSalO74dEtyWGxpWWFsN3Z0OUlZNG5xYmRVWWc&usp=sharing) and [fetching](https://docs.google.com/spreadsheet/pub?key=0Am13enSalO74dEtyWGxpWWFsN3Z0OUlZNG5xYmRVWWc&single=true&gid=0&output=csv)
 
