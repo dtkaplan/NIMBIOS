@@ -1,0 +1,30 @@
+---
+title: "Links for Teaching with R"
+author: "Daniel Kaplan"
+date: "April 7, 2014"
+output: html_document
+---
+
+```{r include=FALSE}
+library( mosaic )
+```
+
+## Monday March 7, 2014
+
+I usually have an online syllabus with a link for each day's notes.
+
+In that page, I can put whatever resources are needed for that class day.
+
+```{r}
+library( mosaic )
+```
+
+## Today's Resources
+
+* A Google Spreadsheet: [editing link](https://docs.google.com/spreadsheet/ccc?key=0Am13enSalO74dEtyWGxpWWFsN3Z0OUlZNG5xYmRVWWc&usp=sharing) and [fetching](https://docs.google.com/spreadsheet/pub?key=0Am13enSalO74dEtyWGxpWWFsN3Z0OUlZNG5xYmRVWWc&single=true&gid=0&output=csv)
+
+To fetch, cut and paste the following from this page into R
+
+```{r}
+ourData <- fetchGoogle("https://docs.google.com/spreadsheet/pub?key=0Am13enSalO74dEtyWGxpWWFsN3Z0OUlZNG5xYmRVWWc&single=true&gid=0&output=csv")
+```

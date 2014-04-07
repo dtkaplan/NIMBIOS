@@ -1,0 +1,126 @@
+---
+title: "What’s Junk Worth?"
+author: "NIMBioS Teaching with R"
+date: "April 7, 2014"
+output: html_document
+---
+
+### Put your name here!
+
+<!-- Boilerplate: Leave this alone -->
+```{r include=FALSE}
+require(mosaic)
+require(NIMBIOS)
+require(knitr)
+opts_chunk$set( tidy=FALSE )
+```
+
+## Background
+
+You already know that adding new terms or variables to a model will tend to increase $R^2$.  Certainly $R^2$ will never go down when you add more terms. That is, the *nested* model cannot have a higher $R^2$ than the model in which it is nested.
+
+To illustrate, here are three models of the heights in Galton's data:
+```{r}
+mod1 <- lm( height ~ sex, data=Galton )
+mod2 <- lm( height ~ sex + mother + father, data=Galton )
+mod3 <- lm( height ~ sex * mother + sex * father, data=Galton )
+```
+
+### Task 1
+
+Explain --- right here --- which of the models are nested in which.  Calculate $R^2$ on each model and show whether or not they follow the pattern described in the *Background* section.
+
+
+### Task 2
+
+Create another set of two or three nested models from whatever data set you like.  Show that the expected $R^2$ pattern holds.
+
+Here are some datasets you might choose from:
+
+* `CPS85` giving data from the Current Population Survey from 1985.
+* `SwimRecords` giving world-record times in the 100m freestyle.
+
+Use `help()` to get an explanation.
+
+## Statistical Significance
+
+Sometimes, the purpose of a model is to determine whether and how potential explanatory variables or the terms constructed from variables are related to the response variable.  For prediction models, it's helpful to choose *meaningful* explanatory variables: ones that are known before the response and which are relevant to the prediction.
+ 
+One widely accepted standard to establish that an explanatory variable is related to the response is the "significance" of a hypothesis test.  "Significance" is a very low standard of evidence.  To be significant, the variable needs to be better than junk.  That's all.  Hardly "significant" in the everyday sense.
+
+As a class, we're going to develop the theory behind a widely used test for significance.  Here's the idea:
+
+* Start with some model.  We'll use
+```{r}
+baseMod <- lm( wage ~ age + sex + educ, data=CPS85 )
+coef(baseMod)
+```
+
+##### Questions
+
+How many coefficients are there?  What's the $R^2$?
+
+* Make some junk and use that as the explanatory variable.  The `rand()` function lets you do this with little effort, simply specifying the number of new coefficients you want to add to the model.  For instance:
+```{r}
+exampleMod <- lm( wage ~ age + sex + educ + rand(5), data=CPS85 )
+coef(exampleMod)
+```
+
+How many coefficients were added?
+
+### Generating Junk
+
+Pick a number of coefficients between, say, 10 and 600.  Use `rand()` to add that many of coefficients to the base model and find $R^2$.
+
+The result should be a number $m$ giving the number of coefficients and the corresponding $R^2$.  Enter your results into the spreadsheet at [this link](https://docs.google.com/spreadsheet/ccc?key=0Am13enSalO74dEtyWGxpWWFsN3Z0OUlZNG5xYmRVWWc&usp=sharing).
+
+Do this several times with different $m$.
+
+After a while, the class will assemble a good number of such instances.
+
+### Building a Theory of $R^2$
+
+Read in the class's data.
+```{r}
+classData <- fetchGoogle("https://docs.google.com/spreadsheet/pub?key=0Am13enSalO74dEtyWGxpWWFsN3Z0OUlZNG5xYmRVWWc&single=true&gid=0&output=csv")
+```
+
+Plot out the relationship between $R^2$ and $m$.
+
+```{r}
+## Your plot here!  Hint: xyplot( R2 ~ m, data=classData )
+```
+
+### Task
+
+Explain (right here) what's going on in the relationship between $m$ and $R^2$.
+
+
+
+Consider this particular model which might be used to investigate the possibility that race, union status, and sector of the economy might explain some of the wage.
+```{r}
+newMod <- lm( wage ~ sex*age*educ + 
+                sex*sector*race + educ*sector*union, 
+              data=CPS85)
+length(coef(newMod)) # this is m
+rsquared(newMod)
+```
+
+See where `newMod` falls, with respect to junk, on your graph of $R^2$ versus $m$.
+
+### Task
+
+Based on the graph, make up some test statistic that might reasonably be used in a significance test.  **Describe it here.**
+
+> Your explanation goes here!
+
+Talk with your colleagues and figure out how the F-test corresponds to the graph.  
+
+> Your F-test description goes here
+
+When you have this figured out, estimate F and the corresponding p-value entirely by eye.
+
+> Write down your estimate
+
+Finally, use `anova()` to calculate the actual F statistic and p-value.
+
