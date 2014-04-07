@@ -94,9 +94,9 @@ coef(baseMod)</code></pre>
 <pre class="r"><code>exampleMod &lt;- lm( wage ~ age + sex + educ + rand(5), data=CPS85 )
 coef(exampleMod)</code></pre>
 <pre><code>## (Intercept)         age        sexM        educ    rand(5)1    rand(5)2 
-##    -7.25153     0.11183     2.32441     0.83605     0.04053    -0.14937 
+##    -7.11776     0.11236     2.35023     0.82263     0.18522    -0.10598 
 ##    rand(5)3    rand(5)4    rand(5)5 
-##    -0.04147    -0.19499     0.14708</code></pre>
+##    -0.30049    -0.06641    -0.07899</code></pre>
 <p>How many coefficients were added?</p>
 </div>
 <div id="generating-junk" class="section level3">
@@ -142,7 +142,7 @@ length(coef(newMod)) # this is m</code></pre>
 </blockquote>
 <p>Finally, use <code>anova()</code> to calculate the actual F statistic and p-value.</p>
 <div class="references">
-
+<h2>Remember to publish via Rpubs</h2>
 </div>
 </div>
 </div>

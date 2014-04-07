@@ -124,3 +124,4 @@ When you have this figured out, estimate F and the corresponding p-value entirel
 
 Finally, use `anova()` to calculate the actual F statistic and p-value.
 
+## Remember to publish via Rpubs
