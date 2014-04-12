@@ -7,6 +7,7 @@ date: NIMBIOS Computing in the Cloud Workshop
 ```{r include=FALSE}
 require(mosaic)
 require(ggplot2)
+require(NIMBIOS)
 opts_chunk$set( tidy=FALSE )
 ```
 
@@ -59,25 +60,24 @@ Some Additional Principles
 
 * Do some things by hand.
 * Don't make the course about teaching the tool
-    > Several people told me about students/colleagues using SPSS.  They can do it, but they don't know what they are doing.
+
+> Several people told me about students/colleagues using SPSS.  They can do it, but they don't know what they are doing.
 
 By Hand?
 ========================================================
 
 Often, the point of "by hand" is to develop an understanding of what a formula means:
 
-* mean: $m = \frac{1}{N}\sum_{i=1}{n} x_i$
+* mean: $m = \frac{1}{n}\sum_{i=1} x_i$
 * correlation coefficient: 
-$$r = \frac{\sum (x_i - m_x)(y_i - m_y)}{\sqrt{(\sum (x_i-m_x)^2)}\sqrt{(y-m_y)^2}}
+$r = \frac{\sum (x_i - m_x)(y_i - m_y)}{\sqrt{(\sum (x_i-m_x)^2)}\sqrt{(y-m_y)^2}}$
 * standard error of the mean: $s/\sqrt{n}$
 
 ### A critique: 
 
 When doing something by hand, you're really using technology:
 
-* Paper and pencil
-* Formulas
-* Tables
+* Paper and pencil, Formulas, Tables
 
 By Eye
 ============================================================
@@ -111,7 +111,7 @@ Two things at once: Example
     * Must constantly refer to the codebook
     * Have to convert some variables to categorical for even simple tasks.
 
-* NHANES cleaned up
+<!-- * NHANES cleaned up -->
 
 Make the technology central to how and what you teach.
 ========================================================
@@ -186,15 +186,26 @@ We need to document, which implies code.  But the code for graphics gets difficu
 Generates the code needed to recreate the plot. (`mBar()` to come.)
 
 ```{r eval=FALSE}
-mScatter( Galton )
-mPlot( Galton, default='density')
+mPlot( Galton )
 ```
 
-```{r echo=FALSE}
+```{r eval=FALSE,echo=FALSE}
 qplot( data=Galton, x=height, geom="line", stat="bin", binwidth=1  ) + aes(colour=sex) + facet_wrap(~sex, ncol=4) + labs(title="") + theme(legend.position="top")
 ```
 
+mScatter example
+====================================================
 
+The deer infection data from yesterday's session with Wei-Chen Chen
+
+```{r}
+deer <- read.csv('DeerInfections.csv')
+```
+
+```{r}
+library(NIMBIOS)
+small <- sample(NHANES, size=500)
+```
 
     
 
